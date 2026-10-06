@@ -5,7 +5,7 @@
 set -euo pipefail
 TOKEN="${1:?usage: setup-runner.sh <registration-token>}"
 REPO="${REPO:-anton-mel/pie-bench}"
-RUNNER_VERSION="${RUNNER_VERSION:-2.321.0}"
+RUNNER_VERSION="${RUNNER_VERSION:-2.337.0}"
 DIR="${RUNNER_DIR:-$HOME/actions-runner-pie-bench}"
 
 step() { printf '\n\033[1m[%s/5] %s\033[0m\n' "$1" "$2"; }
@@ -33,7 +33,11 @@ if [ -d "$HOME/pie/.git" ]; then ok "pie checkout at ~/pie"
 elif command -v git >/dev/null && git clone -q https://github.com/pie-project/pie "$HOME/pie" 2>/dev/null; then ok "cloned pie to ~/pie"
 else warn "could not clone pie (needs git / Xcode command line tools); the runner still connects, pie jobs are skipped until pie is present"; fi
 mkdir -p "$DIR" && cd "$DIR"
-[ -f run.sh ] && ok "runner already in $DIR" || { curl -fsSL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-osx-arm64-${RUNNER_VERSION}.tar.gz" | tar xz; ok "runner $RUNNER_VERSION in $DIR"; }
+if [ "$(cat .pb_version 2>/dev/null)" = "$RUNNER_VERSION" ]; then ok "runner $RUNNER_VERSION in $DIR"; else
+  rm -rf ./* 2>/dev/null || true
+  curl -fsSL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-osx-arm64-${RUNNER_VERSION}.tar.gz" | tar xz
+  echo "$RUNNER_VERSION" > .pb_version; ok "runner $RUNNER_VERSION in $DIR"
+fi
 
 step 4 "Registering with github.com/$REPO"
 NAME="$(scutil --get ComputerName | tr ' ' '-')-$MAC_ID"
