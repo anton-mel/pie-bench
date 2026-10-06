@@ -1,0 +1,150 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  font: 13px/1.38 var(--font-text);
+  letter-spacing: -.003em;
+  color: var(--color-label);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  transition: grid-template-columns .25s ease;
+}
+
+:root[data-sidebar="hidden"] body {
+  grid-template-columns: 0 1fr;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  cursor: default;
+}
+
+svg {
+  flex: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.muted {
+  color: var(--color-label-secondary);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.plain-button {
+  height: var(--control-height);
+  padding: 0 9px;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: none;
+  color: var(--color-label);
+}
+
+.plain-button:hover {
+  background: var(--color-hover);
+}
+
+.plain-button.is-active {
+  color: var(--color-accent);
+}
+
+.popup-chevron {
+  width: 8px;
+  height: 12px;
+  margin-left: 1px;
+  fill: none;
+  stroke: var(--color-label-secondary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.engine-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+}
+
+.engine-tag::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--engine-color, var(--color-engine-default));
+}
+
+.hardware-tag {
+  font: 12px var(--font-mono);
+  color: var(--color-label-secondary);
+}
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-label-secondary);
+}
+
+.status-tag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-label-quaternary);
+}
+
+.status-tag.is-pass::before {
+  background: var(--color-status-pass);
+}
+
+.status-tag.is-noisy::before {
+  background: var(--color-status-noisy);
+}
+
+.is-positive {
+  color: var(--color-positive);
+}
+
+.is-negative {
+  color: var(--color-negative);
+}
+
+@media (max-width: 760px) {
+  body,
+  :root[data-sidebar] body {
+    grid-template-columns: 1fr;
+  }
+}

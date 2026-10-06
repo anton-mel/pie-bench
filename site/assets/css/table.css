@@ -1,0 +1,125 @@
+.table-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.data-table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding-left: var(--edge);
+}
+
+.data-table th:last-child,
+.data-table td:last-child {
+  padding-right: var(--edge);
+}
+
+.data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-label-secondary);
+  background: var(--color-table-header);
+  border-bottom: .5px solid var(--color-separator);
+  backdrop-filter: blur(20px) saturate(1.8);
+  user-select: none;
+}
+
+.data-table thead th:first-child {
+  z-index: 3;
+}
+
+.data-table thead th:hover {
+  color: var(--color-label);
+}
+
+.data-table td {
+  height: var(--row-height);
+  background: var(--color-row);
+  border-bottom: .5px solid var(--color-separator-light);
+}
+
+.data-table .is-numeric {
+  text-align: right;
+}
+
+.data-table td.is-empty {
+  color: var(--color-label-quaternary);
+}
+
+.data-table td.is-code {
+  font: 12px var(--font-mono);
+  color: var(--color-label-secondary);
+}
+
+.data-table tbody tr:hover td {
+  background: var(--color-row-hover);
+}
+
+.data-table tbody tr.is-link {
+  cursor: pointer;
+}
+
+.data-table tbody tr.is-highlighted td {
+  background: var(--color-row-highlight);
+}
+
+.data-table tbody tr.is-highlighted:hover td {
+  background: var(--color-row-highlight-hover);
+}
+
+.column-unit {
+  margin-left: 3px;
+  font-weight: 400;
+  color: var(--color-label-tertiary);
+}
+
+.column-coverage {
+  margin-left: 5px;
+  font-weight: 500;
+  color: var(--color-label-tertiary);
+}
+
+.column-coverage.is-low {
+  color: var(--color-warning);
+}
+
+.column-planned {
+  margin-left: 5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-label-secondary);
+  background: var(--color-fill);
+}
+
+.column-sort {
+  margin-left: 3px;
+  color: var(--color-accent);
+}
+
+.table-empty {
+  padding: 64px 0;
+  text-align: center;
+  color: var(--color-label-secondary);
+}

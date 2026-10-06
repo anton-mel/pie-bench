@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare engines – Pie</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+
+  <script src="assets/js/boot/preferences.js"></script>
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/sidebar.css">
+  <link rel="stylesheet" href="assets/css/toolbar.css">
+  <link rel="stylesheet" href="assets/css/filter-bar.css">
+  <link rel="stylesheet" href="assets/css/table.css">
+  <link rel="stylesheet" href="assets/css/popover.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <svg class="sidebar-logo" viewBox="0 0 67.89 67.89" aria-hidden="true">
+        <path d="M52.96,11.53l-43.52,6.4c-3.85.57-5.64,5.08-3.22,8.13l27.3,34.49c2.41,3.05,7.22,2.34,8.65-1.27l16.21-40.89c1.43-3.61-1.58-7.42-5.43-6.86Z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="8"/>
+      </svg>
+      <span class="sidebar-name">Pie</span>
+      <a class="sidebar-help" href="https://pie-project.org" target="_blank" rel="noopener" aria-label="About Pie" title="About Pie (pie-project.org)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+      </a>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav" aria-label="Tables"></nav>
+  </aside>
+
+  <main class="content">
+    <header class="toolbar">
+      <button class="tool-button sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Show or hide the sidebar" title="Show or hide the sidebar (⌃⌘S)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M9 4.5v15"/><path d="M5.5 8.5h1.5M5.5 11h1.5M5.5 13.5h1.5"/></svg>
+      </button>
+
+      <div class="toolbar-titles">
+        <h1 class="toolbar-title" id="toolbar-title"></h1>
+        <div class="toolbar-subtitle" id="toolbar-subtitle"></div>
+      </div>
+
+      <span class="spacer"></span>
+
+      <label class="search-field">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="search" type="search" placeholder="Search" autocomplete="off" aria-label="Search">
+      </label>
+
+      <button class="release-picker" id="release-picker" type="button" aria-haspopup="menu">
+        <span class="release-picker-label">pie</span>
+        <span class="release-picker-value" id="release-value"></span>
+        <svg class="popup-chevron" viewBox="0 0 10 14" aria-hidden="true"><path d="M2 5l3-3 3 3M2 9l3 3 3-3"/></svg>
+      </button>
+
+      <button class="tool-button theme-toggle" id="theme-toggle" type="button" aria-label="Switch light or dark mode" title="Light / dark">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </header>
+
+    <div class="filter-bar">
+      <div class="filter-list" id="filter-list"></div>
+      <span class="spacer"></span>
+      <button class="plain-button" id="hide-empty" type="button">Hide empty</button>
+    </div>
+
+    <div class="table-container" id="table-container">
+      <table class="data-table" id="data-table"></table>
+    </div>
+  </main>
+
+  <div class="popover" id="popover" role="menu" hidden></div>
+
+  <script src="data/db.js"></script>
+
+  <script src="assets/js/config/icons.js"></script>
+  <script src="assets/js/config/engines.js"></script>
+  <script src="assets/js/config/schema.js"></script>
+
+  <script src="assets/js/core/state.js"></script>
+  <script src="assets/js/core/format.js"></script>
+  <script src="assets/js/core/store.js"></script>
+  <script src="assets/js/core/query.js"></script>
+
+  <script src="assets/js/ui/preferences.js"></script>
+  <script src="assets/js/ui/sidebar.js"></script>
+  <script src="assets/js/ui/toolbar.js"></script>
+  <script src="assets/js/ui/popover.js"></script>
+  <script src="assets/js/ui/filters.js"></script>
+  <script src="assets/js/ui/table.js"></script>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

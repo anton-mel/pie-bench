@@ -1,0 +1,33 @@
+# Engines compared on Apple Silicon. pie is the subject; the rest are baselines,
+# each loading its own copy of the same model in the format it supports.
+# `pin` is the version to install; `format` is the weight format it reads.
+engines:
+  - id: pie
+    name: pie
+    format: mlx
+    pin: main
+    source: github:pie-project/pie
+
+  - id: mlxlm
+    name: MLX
+    format: mlx
+    pin: "0.31.3"
+    source: pypi:mlx-lm
+
+  - id: llamacpp
+    name: llama.cpp
+    format: gguf
+    pin: b11312
+    source: github:ggml-org/llama.cpp
+
+  - id: ollama
+    name: Ollama
+    format: ollama
+    pin: "0.35.0"
+    source: github:ollama/ollama
+
+  - id: splash
+    name: Splash
+    format: splash
+    pin: "1.1.0"
+    source: github:incoai/splash

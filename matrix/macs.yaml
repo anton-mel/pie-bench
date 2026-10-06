@@ -1,0 +1,46 @@
+# Apple Silicon Macs that run the benchmark, keyed by the label their GitHub
+# self-hosted runner registers with. `infra/mac/setup-runner.sh` derives the id
+# from the chip and memory, so it matches an entry here.
+macs:
+  - id: m3-16gb
+    name: MacBook Air M3 16 GB
+    chip: Apple M3
+    memory_gib: 16
+    host: macbook-air-test-m3-16gb
+
+  - id: m5-16gb
+    name: MacBook Air M5 16 GB
+    chip: Apple M5
+    memory_gib: 16
+    host: macbook-air-test-m5-16gb
+
+  - id: m4-pro-48gb
+    name: MacBook Pro M4 Pro 48 GB
+    chip: Apple M4 Pro
+    memory_gib: 48
+    host: macbook-pro-test-m4-pro-48gb
+
+  - id: m5-128gb
+    name: MacBook Pro M5 128 GB
+    chip: Apple M5
+    memory_gib: 128
+    host: macbook-pro-test-m5-128gb
+
+  - id: m5-max-64gb
+    name: MacBook Pro M5 Max 64 GB
+    chip: Apple M5 Max
+    memory_gib: 64
+    host: macbook-pro-test-m5-max-64gb
+
+  # ---- M5 Max fleet already measured (seed data in store/)
+  - id: m5-max-48g
+    name: MacBook Pro M5 Max 48 GB
+    chip: Apple M5 Max
+    memory_gib: 48
+    host: ""
+
+  - id: m5-max-128g
+    name: MacBook Pro M5 Max 128 GB
+    chip: Apple M5 Max
+    memory_gib: 128
+    host: ""

@@ -1,0 +1,19 @@
+# Two workloads. `single` sends one request at a time and reports per-request
+# speed and latency. `throughput` sends many requests in parallel to saturate
+# the machine and reports total output tokens per second.
+workloads:
+  - id: single
+    name: Single request
+    concurrency: 1
+    requests: 6
+    prompt_tokens: 512
+    output_tokens: 200
+    warmup: 1
+
+  - id: throughput
+    name: Throughput
+    concurrency: 32
+    requests: 128
+    prompt_tokens: 128
+    output_tokens: 128
+    warmup: 4

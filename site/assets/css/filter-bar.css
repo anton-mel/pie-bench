@@ -1,0 +1,54 @@
+.filter-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 4px;
+  height: var(--filter-bar-height);
+  padding: 0 var(--edge) 0 8px;
+  overflow-x: auto;
+  background: var(--color-chrome);
+  border-bottom: .5px solid var(--color-separator);
+}
+
+.filter-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-height);
+  border-radius: var(--radius-control);
+  color: var(--color-label);
+}
+
+.filter:hover {
+  background: var(--color-hover);
+}
+
+
+.filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: var(--control-height);
+  padding: 0 9px;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+
+.filter.is-set {
+  background: var(--color-accent-tint);
+  color: var(--color-accent);
+}
+
+
+.filter.is-set .engine-tag,
+.filter.is-set .hardware-tag {
+  color: var(--color-label);
+}

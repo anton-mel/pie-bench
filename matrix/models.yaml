@@ -1,0 +1,72 @@
+# Models under test. `weights` maps each engine's format to the checkpoint it
+# loads, so every engine runs its own copy of the same model. A format left out
+# means that engine does not run this model. `params_b` / `active_b` are billions
+# of total and active parameters; `fits_gib` is the rough 4-bit resident size.
+models:
+  - id: qwen3.5-0.8b
+    name: Qwen3.5 0.8B
+    family: qwen
+    params_b: 0.8
+    active_b: 0.8
+    fits_gib: 1.0
+    weights:
+      mlx: mlx-community/Qwen3.5-0.8B-4bit
+      gguf: unsloth/Qwen3.5-0.8B-GGUF
+      ollama: qwen3.5:0.8b
+
+  - id: llama-3.2-3b
+    name: Llama 3.2 3B
+    family: llama
+    params_b: 3
+    active_b: 3
+    fits_gib: 2.0
+    weights:
+      mlx: mlx-community/Llama-3.2-3B-Instruct-4bit
+      gguf: bartowski/Llama-3.2-3B-Instruct-GGUF
+      ollama: llama3.2:3b
+
+  - id: gemma-4-26b-a4b
+    name: Gemma 4 26B-A4B
+    family: gemma
+    params_b: 26
+    active_b: 4
+    fits_gib: 15.0
+    weights:
+      mlx: mlx-community/gemma-4-26b-a4b-it-4bit
+      gguf: unsloth/gemma-4-26B-A4B-it-GGUF
+      ollama: gemma4:26b-a4b
+
+  - id: qwen3.8-27b
+    name: Qwen3.8 27B
+    family: qwen
+    params_b: 27
+    active_b: 27
+    fits_gib: 15.0
+    weights:
+      mlx: mlx-community/Qwen3.8-27B-4bit
+      gguf: unsloth/Qwen3.8-27B-GGUF
+      ollama: qwen3.8:27b
+      splash: Qwen3.8-27B
+
+  - id: qwen3.6-35b-a3b
+    name: Qwen3.6 35B-A3B
+    family: qwen
+    params_b: 35
+    active_b: 3
+    fits_gib: 20.0
+    weights:
+      mlx: mlx-community/Qwen3.6-35B-A3B-4bit
+      gguf: unsloth/Qwen3.6-35B-A3B-GGUF
+      ollama: qwen3.6:35b-a3b
+      splash: Qwen3.6-35B-A3B
+
+  - id: muse-glimmer-30b
+    name: Muse Glimmer 30B
+    family: muse
+    params_b: 30
+    active_b: 30
+    fits_gib: 17.0
+    weights:
+      mlx: mlx-community/Muse-Glimmer-30B-4bit
+      gguf: meta-models/Muse-Glimmer-30B-GGUF
+      ollama: muse-glimmer:30b
