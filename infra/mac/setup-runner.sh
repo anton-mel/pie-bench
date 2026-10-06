@@ -41,9 +41,13 @@ fi
 
 step 4 "Registering with github.com/$REPO"
 NAME="$(scutil --get ComputerName | tr ' ' '-')-$MAC_ID"
-./config.sh --unattended --url "https://github.com/$REPO" --token "$TOKEN" --name "$NAME" \
-  --labels "self-hosted,macos,$MAC_ID" --work _work --replace >/dev/null
-ok "registered as $NAME with label $MAC_ID"
+if [ -f .runner ]; then
+  ok "already registered; leaving the existing registration in place"
+else
+  ./config.sh --unattended --url "https://github.com/$REPO" --token "$TOKEN" --name "$NAME" \
+    --labels "self-hosted,macos,$MAC_ID" --work _work --replace >/dev/null
+  ok "registered as $NAME with label $MAC_ID"
+fi
 
 step 5 "Starting the runner"
 if ./svc.sh install >/dev/null 2>&1 && ./svc.sh start >/dev/null 2>&1; then
