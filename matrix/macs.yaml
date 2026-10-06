@@ -39,15 +39,3 @@ macs:
     memory_gib: 16
     host: macbook-air-test-m2-16gb.oarfish-sargas.ts.net
 
-  # ---- M5 Max fleet already measured (seed data in store/)
-  - id: m5-max-48g
-    name: MacBook Pro M5 Max 48 GB
-    chip: Apple M5 Max
-    memory_gib: 48
-    host: ""
-
-  - id: m5-max-128g
-    name: MacBook Pro M5 Max 128 GB
-    chip: Apple M5 Max
-    memory_gib: 128
-    host: ""
