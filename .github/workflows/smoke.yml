@@ -1,0 +1,20 @@
+name: smoke
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gpu:
+    runs-on: [self-hosted, linux, cuda]
+    steps:
+      - uses: actions/checkout@v4
+      - name: GPU
+        run: nvidia-smi
+      - name: Install
+        run: |
+          uv venv
+          uv pip install -e .
+      - name: Check
+        run: |
+          .venv/bin/python -c "import duckdb, pyarrow; print('deps ok')"
+          .venv/bin/pie-bench list --mac m5-max-128gb | head
