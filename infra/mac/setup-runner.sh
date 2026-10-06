@@ -45,8 +45,14 @@ NAME="$(scutil --get ComputerName | tr ' ' '-')-$MAC_ID"
   --labels "self-hosted,macos,$MAC_ID" --work _work --replace >/dev/null
 ok "registered as $NAME with label $MAC_ID"
 
-step 5 "Starting the runner service"
-./svc.sh install >/dev/null 2>&1 || true
-./svc.sh start >/dev/null
-ok "service running; it restarts at login"
+step 5 "Starting the runner"
+if ./svc.sh install >/dev/null 2>&1 && ./svc.sh start >/dev/null 2>&1; then
+  ok "service running; it restarts at login"
+else
+  warn "launchd service needs a GUI login; starting the runner detached instead"
+  pkill -f "$DIR/bin/Runner.Listener" 2>/dev/null || true
+  nohup setsid ./run.sh >"$HOME/pie-bench-runner.log" 2>&1 </dev/null &
+  sleep 4
+  pgrep -f "$DIR/bin/Runner.Listener" >/dev/null && ok "runner started detached (log: ~/pie-bench-runner.log)" || warn "runner did not stay up; check ~/pie-bench-runner.log"
+fi
 printf '\n\033[32mDone.\033[0m This Mac now picks up pie-bench jobs.\n'
