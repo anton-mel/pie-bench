@@ -29,7 +29,9 @@ for t in git uv ollama; do command -v "$t" >/dev/null && ok "$t" || warn "$t not
 pmset -g batt | grep -q "AC Power" && ok "on AC power" || warn "on battery: results are less stable"
 
 step 3 "Fetching pie and the runner"
-[ -d "$HOME/pie/.git" ] && ok "pie checkout at ~/pie" || { git clone -q https://github.com/pie-project/pie "$HOME/pie"; ok "cloned pie to ~/pie"; }
+if [ -d "$HOME/pie/.git" ]; then ok "pie checkout at ~/pie"
+elif command -v git >/dev/null && git clone -q https://github.com/pie-project/pie "$HOME/pie" 2>/dev/null; then ok "cloned pie to ~/pie"
+else warn "could not clone pie (needs git / Xcode command line tools); the runner still connects, pie jobs are skipped until pie is present"; fi
 mkdir -p "$DIR" && cd "$DIR"
 [ -f run.sh ] && ok "runner already in $DIR" || { curl -fsSL "https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-osx-arm64-${RUNNER_VERSION}.tar.gz" | tar xz; ok "runner $RUNNER_VERSION in $DIR"; }
 
