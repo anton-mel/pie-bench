@@ -58,6 +58,20 @@ Mint the token at **Settings → Actions → Runners → New self-hosted runner*
 script labels the runner by chip and memory (e.g. `m5-max-64gb`) to match
 `matrix/macs.yaml`. Remove it later with `infra/mac/remove-runner.sh`.
 
+## Cost control (GPU pods)
+
+GPU runs use **ephemeral** RunPod pods that take one job and terminate themselves; a
+watchdog also kills the pod after `MAX_LIFETIME_S` (default 30 min) even if no job
+arrives, so a pod never idles on the clock. Launch one with:
+
+```sh
+RUNPOD_API_KEY=... ./infra/runpod/run-gpu.sh      # RTX 4090 by default
+```
+
+A pod is billed for the whole time it is RUNNING, not just while a job runs, so never
+leave one up idle. Stop compute with `POST /v1/pods/<id>/stop` or remove it entirely
+with `DELETE /v1/pods/<id>`.
+
 ## Engine adapter status
 
 `bench/engines.py` drives each engine's server. The MLX, llama.cpp and Ollama

@@ -25,9 +25,25 @@ fi
 
 NAME="runpod-$(hostname)-$GPU_ID"
 if [ ! -f .runner ]; then
+  # --ephemeral: take exactly one job, then exit. The pod never lingers idle on the clock.
   ./config.sh --unattended --url "https://github.com/$REPO" --token "$TOKEN" \
-    --name "$NAME" --labels "self-hosted,linux,cuda,$GPU_ID" --work _work --replace
+    --name "$NAME" --labels "self-hosted,linux,cuda,$GPU_ID" --work _work --replace --ephemeral
 fi
 
-echo "pie-bench runner $NAME starting (labels: self-hosted,linux,cuda,$GPU_ID)"
-exec ./run.sh
+# Terminate this pod via the RunPod API. Needs RUNPOD_API_KEY passed at create;
+# RUNPOD_POD_ID is injected by RunPod.
+terminate() {
+  [ -n "${RUNPOD_API_KEY:-}" ] && [ -n "${RUNPOD_POD_ID:-}" ] || { echo "no RUNPOD_API_KEY/POD_ID; cannot self-terminate"; return; }
+  echo "terminating pod $RUNPOD_POD_ID"
+  curl -s -X DELETE "https://rest.runpod.io/v1/pods/$RUNPOD_POD_ID" -H "Authorization: Bearer $RUNPOD_API_KEY" >/dev/null || true
+}
+
+# Safety net: never bill longer than MAX_LIFETIME_S even if no job ever arrives.
+( sleep "${MAX_LIFETIME_S:-1800}"; echo "watchdog: lifetime cap reached"; terminate ) &
+WATCHDOG=$!
+
+echo "pie-bench runner $NAME starting (ephemeral; labels: self-hosted,linux,cuda,$GPU_ID)"
+./run.sh || true
+
+kill "$WATCHDOG" 2>/dev/null || true
+terminate
