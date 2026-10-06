@@ -1,0 +1,32 @@
+# Install the pie-bench GitHub Actions runner on every Mac in the inventory.
+#
+#   ansible-playbook -i inventory.ini runners.yml --ask-pass -e token=<registration-token>
+#
+# Mint the token at github.com/anton-mel/pie-bench/settings/actions/runners/new.
+# One token registers every host while it is valid (about an hour). The runner
+# connects outbound to GitHub, so the Macs need no inbound access.
+- name: Provision pie-bench runners
+  hosts: macs
+  gather_facts: false
+  vars:
+    repo: anton-mel/pie-bench
+  tasks:
+    - name: token is provided
+      ansible.builtin.assert:
+        that: token is defined and token | length > 0
+        fail_msg: "pass -e token=<registration-token>"
+
+    - name: Install uv and register the runner
+      ansible.builtin.shell: |
+        set -e
+        command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+        export MAC_ID={{ mac_id }}
+        curl -fsSL https://raw.githubusercontent.com/{{ repo }}/main/infra/mac/setup-runner.sh | bash -s {{ token }}
+      args:
+        executable: /bin/bash
+      register: setup
+      changed_when: true
+
+    - name: Show the result
+      ansible.builtin.debug:
+        var: setup.stdout_lines
